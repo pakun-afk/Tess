@@ -12,12 +12,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Extract ZIP Project
+            - name: Extract Project ZIP
         run: |
-          # Ganti '#BTR APPS BASE ( RAT ).zip' sesuai nama file zip yang ada di repo
-          unzip *.zip 
-          # Pindahkan isi folder jika unzip membuat folder baru, agar gradlew ada di luar
-          mv */* . || true 
+          # Perintah untuk unzip semua file .zip yang ada di repo
+          unzip -o *.zip
+          
+          # PROTOKOL PENTING:
+          # Biasanya setelah unzip, file masuk ke dalam folder lagi.
+          # Perintah ini mindahin isinya ke luar biar sejajar sama gradlew.
+          mv */* . || true
+ 
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
