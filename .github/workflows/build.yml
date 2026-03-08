@@ -12,16 +12,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-            - name: Extract Project ZIP
+      - name: Extract Project ZIP
         run: |
-          # Perintah untuk unzip semua file .zip yang ada di repo
           unzip -o *.zip
-          
-          # PROTOKOL PENTING:
-          # Biasanya setelah unzip, file masuk ke dalam folder lagi.
-          # Perintah ini mindahin isinya ke luar biar sejajar sama gradlew.
           mv */* . || true
- 
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
