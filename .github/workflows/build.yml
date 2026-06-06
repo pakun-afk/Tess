@@ -1,36 +1,45 @@
-name: Oxyverse Native Build
+name: Flutter APK Builder From Zip
 
 on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
+  workflow_dispatch: # Memungkinkan kamu klik tombol "Run workflow" manual dari HP
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Extract Project ZIP
+      - name: Ekstrak Source Code CLIENT.zip
         run: |
-          unzip -o *.zip
-          mv */* . || true
+          echo "Mengekstrak file CLIENT.zip..."
+          unzip -o CLIENT.zip -d .
+          echo "Ekstrak selesai!"
+          ls -la # Mengintip struktur folder setelah diekstrak
 
-      - name: Set up JDK 17
+      - name: Setup Java Development Kit (JDK)
         uses: actions/setup-java@v4
         with:
+          distribution: 'zulu'
           java-version: '17'
-          distribution: 'temurin'
 
-      - name: Grant Execute Permission
-        run: chmod +x gradlew
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
 
-      - name: Build APK Release
-        run: ./gradlew assembleRelease
+      - name: Get Flutter Dependencies
+        run: flutter pub get
+
+      - name: Clean Build Cache
+        run: flutter clean
+
+      - name: Build Release APK
+        run: flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Oxyverse-APK-Result
-          path: app/build/outputs/apk/release/*.apk
+          name: flutter-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
