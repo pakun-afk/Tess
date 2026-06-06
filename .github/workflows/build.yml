@@ -13,8 +13,8 @@ jobs:
 
       - name: Ekstrak Source Code CLIENT.zip
         run: |
-          echo "Mengekstrak file nebula.zip..."
-          unzip -o nebula.zip -d .
+          echo "Mengekstrak file CLIENT.zip..."
+          unzip -o CLIENT.zip -d .
           echo "Ekstrak selesai!"
           ls -la # Mengintip struktur folder setelah diekstrak
 
