@@ -11,10 +11,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Ekstrak Source Code CLIENT.zip
+      - name: Ekstrak Source Code yoshimutsu.zip
         run: |
-          echo "Mengekstrak file CLIENT.zip..."
-          unzip -o CLIENT.zip -d .
+          echo "Mengekstrak file yoshimutsu.zip..."
+          unzip -o yoshimutsu.zip -d .
           echo "Ekstrak selesai!"
           ls -la # Mengintip struktur folder setelah diekstrak
 
